@@ -43,3 +43,5 @@ group :development do
   # gem "spring"
 end
 
+gem 'devise_token_auth'
+gem 'aasm'
