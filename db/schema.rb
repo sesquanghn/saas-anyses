@@ -10,7 +10,40 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_25_094548) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_26_025631) do
+  create_table "aasm_status_histories", charset: "utf8mb4", force: :cascade do |t|
+    t.string "changed_from"
+    t.string "changed_to"
+    t.string "event_name"
+    t.string "historyable_type"
+    t.bigint "historyable_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["historyable_type", "historyable_id"], name: "index_aasm_status_histories_on_historyable"
+  end
+
+  create_table "employees", charset: "utf8mb4", force: :cascade do |t|
+    t.date "joined_date"
+    t.string "name"
+    t.integer "leave_days_remaining"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_employees_on_user_id"
+  end
+
+  create_table "leave_applications", charset: "utf8mb4", force: :cascade do |t|
+    t.string "remarks"
+    t.boolean "application_confirmed", default: false
+    t.date "date_of_application"
+    t.integer "leave_type", limit: 1
+    t.integer "leave_status", limit: 1
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_leave_applications_on_user_id"
+  end
+
   create_table "users", charset: "utf8mb4", force: :cascade do |t|
     t.string "provider", default: "email", null: false
     t.string "uid", default: "", null: false
@@ -34,4 +67,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_25_094548) do
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
   end
 
+  add_foreign_key "employees", "users"
+  add_foreign_key "leave_applications", "users"
 end

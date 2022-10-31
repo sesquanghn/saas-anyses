@@ -6,8 +6,7 @@ services:
       - "3306:3306"
     volumes:
       - ./tmp/db:/var/lib/mysql
-    environment:
-      MYSQL_ROOT_PASSWORD: password
+    env_file: .env
   web:
     tty: true
     stdin_open: true
@@ -16,6 +15,6 @@ services:
     volumes:
       - .:/app
     ports:
-      - "3000:3000"
+      - "3001:3000"
     depends_on:
       - db
