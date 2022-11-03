@@ -48,18 +48,19 @@ test:
 # Read https://guides.rubyonrails.org/configuring.html#configuring-a-database
 # for a full overview on how database connection configuration can be specified.
 #
+production:
+  <<: *default
+  database: <%= ENV["FREE_DB_NAME"] %>
+  host: <%= ENV["FREE_DATABASE_HOST"] %>
+  username: <%= ENV["FREE_DB_USER"] %>
+  password: <%= ENV["FREE_DB_PASS"] %>
+
+#for Heroku
 #production:
-#  <<: *default
+#  adapter: postgresql
+#  encoding: unicode
+#  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+#  url: <%= ENV["DATABASE_URL"] %>
 #  database: app_production
 #  username: app
 #  password: <%= ENV["APP_DATABASE_PASSWORD"] %>
-
-#for Heroku
-production:
-  adapter: postgresql
-  encoding: unicode
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  url: <%= ENV["DATABASE_URL"] %>
-  database: app_production
-  username: app
-  password: <%= ENV["APP_DATABASE_PASSWORD"] %>
