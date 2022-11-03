@@ -50,6 +50,7 @@ test:
 #
 production:
   <<: *default
+  host: sql.freedb.tech
   database: freedb_app_production
   username: freedb_userquang
   password: 9uF2bbew6bs##rH
