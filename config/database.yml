@@ -50,10 +50,9 @@ test:
 #
 production:
   <<: *default
-  database: <%= ENV["FREE_DB_NAME"] %>
-  host: <%= ENV["FREE_DATABASE_HOST"] %>
-  username: <%= ENV["FREE_DB_USER"] %>
-  password: <%= ENV["FREE_DB_PASS"] %>
+  database: freedb_app_production
+  username: freedb_userquang
+  password: 9uF2bbew6bs##rH
 
 #for Heroku
 #production:
