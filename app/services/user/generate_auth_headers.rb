@@ -18,9 +18,9 @@ class User::GenerateAuthHeaders
     }
 
     # generate auth headers for response
-    new_auth_header = user.build_auth_header(token.token, token.client)
+    auth_headers = user.build_auth_header(token.token, token.client)
     user.save
 
-    new_auth_header
+    { user: user, auth_headers: auth_headers }
   end
 end

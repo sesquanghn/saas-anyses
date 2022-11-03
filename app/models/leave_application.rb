@@ -48,8 +48,15 @@ class LeaveApplication < ApplicationRecord
     end
 
     event :approve_application do
-      transitions from: [:pending, :denied], to: :approved, after: :after_approved
+      transitions from: [:pending, :denied], to: :approved, after: -> { after_approved }
     end
+  end
+
+  def policy
+    @policy ||= begin
+                  user = User.joins(:employee).where(employee: { id: employee_id }).take
+                  LeaveApplicationPolicy.new(user, self)
+                end
   end
 
   private

@@ -4,13 +4,12 @@ class Api::V1::LeaveApplicationsController < ApplicationController
 
   def index
     @pagy, applications = pagy(LeaveApplication.by_employee_id(@employee_id).order_leave_date)
-    hash = LeaveApplicationSerializer.new(applications).serializable_hash
 
-    render json: hash
+    render json: LeaveApplicationSerializer.new(applications, include_options)
   end
 
   def show
-    application = LeaveApplication.find(params[:id])
+    application = authorize(LeaveApplication.find(params[:id]))
     serializer_data = LeaveApplicationSerializer.new(application).serializable_hash
 
     render json: serializer_data
@@ -24,7 +23,7 @@ class Api::V1::LeaveApplicationsController < ApplicationController
   end
 
   def update
-    application = LeaveApplication.pending.find(params[:id])
+    application = authorize(LeaveApplication.find(params[:id]))
     application.update!(application_params)
     serializer_data = LeaveApplicationSerializer.new(application).serializable_hash
 
@@ -32,7 +31,8 @@ class Api::V1::LeaveApplicationsController < ApplicationController
   end
 
   def destroy
-    LeaveApplication.pending.find(params[:id]).destroy
+    application = authorize(LeaveApplication.find(params[:id]))
+    application.destroy
   end
 
   private

@@ -18,8 +18,8 @@
 #
 #  fk_rails_...  (user_id => users.id)
 #
-class Employee < ApplicationRecord
-  belongs_to :user
-
+class EmployeeSerializer < ApplicationSerializer
   has_many :leave_applications
+
+  attributes :name, :joined_date, :leave_days_remaining
 end

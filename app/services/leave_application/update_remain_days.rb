@@ -21,8 +21,13 @@ class LeaveApplication::UpdateRemainDays
   private
 
   def update_leave_day_already?
-    LeaveApplication.where(date_of_application: application.date_of_application, leave_type: ['full', leave_type])
-                    .by_employee_id(application.employee_id)
-                    .exists?
+    submitted_leave_types = LeaveApplication.where(date_of_application: application.date_of_application)
+                                            .by_employee_id(application.employee_id)
+                                            .where.not(id: application.id)
+                                            .pluck(:leave_type)
+
+    submitted_leave_types.include?('full') ||
+      submitted_leave_types.include?(leave_type) ||
+      ((submitted_leave_types & ['morning', 'afternoon']).size == 2)
   end
 end

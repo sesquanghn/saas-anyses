@@ -15,6 +15,7 @@
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string(255)
+#  role                   :integer          default("user")
 #  tokens                 :text(65535)
 #  uid                    :string(255)      default(""), not null
 #  unconfirmed_email      :string(255)
@@ -32,6 +33,8 @@ class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   #   :confirmable, :lockable, :timeoutable, :trackable, :omniauthable, :validatable
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :confirmable
+
+  enum role: [:user, :admin], _suffix: true
 
   has_one :employee, dependent: :destroy
   has_many :leave_applications, dependent: :destroy
