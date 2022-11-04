@@ -87,6 +87,7 @@ class LeaveApplication < ApplicationRecord
 
     if submitted_leave_types.include?('full') ||
         submitted_leave_types.include?(leave_type) ||
+        (leave_type == 'full' && submitted_leave_types.any?) ||
         ((submitted_leave_types & ['morning', 'afternoon']).size == 2)
       errors.add(:leave_type, :taken)
     end
