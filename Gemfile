@@ -14,6 +14,7 @@ group :development, :test do
   gem 'debug', platforms: %i[mri mingw x64_mingw]
   gem 'dotenv-rails'
   gem 'mysql2', '~> 0.5'
+  gem 'pry'
 end
 
 group :development do
@@ -31,3 +32,4 @@ gem 'jsonapi-serializer'
 gem 'google-apis-oauth2_v2'
 gem 'pundit'
 gem 'ransack'
+gem 'slack-notifier', require: false
