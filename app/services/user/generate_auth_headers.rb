@@ -1,13 +1,15 @@
+require 'google/apis/oauth2_v2'
+
 class User::GenerateAuthHeaders
-  attr_reader :oauth2, :access_token
+  attr_reader :access_token
 
   def initialize(access_token)
-    @oauth2 = Google::Apis::Oauth2V2::Oauth2Service.new
     @access_token = access_token
   end
 
   def perform
-    tokeninfo = @oauth2.tokeninfo(access_token: @access_token)
+    oauth2 = Google::Apis::Oauth2V2::Oauth2Service.new
+    tokeninfo = oauth2.tokeninfo(access_token: @access_token)
     user = User.find_or_create_by(email: tokeninfo.email)
     token = DeviseTokenAuth::TokenFactory.create
 

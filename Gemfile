@@ -29,7 +29,7 @@ gem 'devise_token_auth'
 gem 'aasm'
 gem 'pagy', '~> 5.10'
 gem 'jsonapi-serializer'
-gem 'google-apis-oauth2_v2'
+gem 'google-apis-oauth2_v2', require: false
 gem 'pundit'
 gem 'ransack'
 gem 'slack-notifier', require: false
