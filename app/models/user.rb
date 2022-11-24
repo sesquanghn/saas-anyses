@@ -50,15 +50,14 @@ class User < ActiveRecord::Base
 
     build_employee.tap do |empl|
       name, _ = empl.user.email.split('@')
-      fullname = if name.include?('.')
-                   lastname, firstname = name.split('.')
-                   "#{firstname.capitalize} #{lastname&.upcase}"
-                 else
-                   name.capitalize
-                 end
+      empl.name = if name.include?('.')
+                    lastname, firstname = name.split('.')
+                    "#{firstname.capitalize} #{lastname&.upcase}"
+                  else
+                    name.capitalize
+                  end
 
       empl.leave_days_remaining = 0
-      empl.name = fullname
     end
   end
 end

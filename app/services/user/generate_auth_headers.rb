@@ -9,7 +9,7 @@ class User::GenerateAuthHeaders
 
   def perform
     oauth2 = Google::Apis::Oauth2V2::Oauth2Service.new
-    tokeninfo = oauth2.tokeninfo(access_token: @access_token)
+    tokeninfo = oauth2.tokeninfo(access_token: access_token)
     user = User.find_or_create_by(email: tokeninfo.email)
     token = DeviseTokenAuth::TokenFactory.create
 
