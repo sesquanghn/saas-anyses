@@ -39,6 +39,8 @@ class User < ActiveRecord::Base
   has_one :employee, dependent: :destroy
   has_many :leave_applications, dependent: :destroy
 
+  delegate :name, to: :employee
+
   include DeviseTokenAuth::Concerns::User
 
   before_save :assign_employee, if: :new_record?
